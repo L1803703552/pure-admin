@@ -7,33 +7,33 @@ import { MockMethod } from "vite-plugin-mock";
  * common：普通角色
  */
 
-const permissionRouter = {
-  path: "/permission",
-  meta: {
-    title: "权限管理",
-    icon: "lollipop",
-    rank: 998
-  },
-  children: [
-    {
-      path: "/permission/page/index",
-      name: "PermissionPage",
-      meta: {
-        title: "页面权限",
-        roles: ["admin", "common"]
-      }
-    },
-    {
-      path: "/permission/button/index",
-      name: "PermissionButton",
-      meta: {
-        title: "按钮权限",
-        roles: ["admin", "common"],
-        auths: ["btn_add", "btn_edit", "btn_delete"]
-      }
-    }
-  ]
-};
+// const permissionRouter = {
+//   path: "/permission",
+//   meta: {
+//     title: "权限管理",
+//     icon: "lollipop",
+//     rank: 998
+//   },
+//   children: [
+//     {
+//       path: "/permission/page/index",
+//       name: "PermissionPage",
+//       meta: {
+//         title: "页面权限",
+//         roles: ["admin", "common"]
+//       }
+//     },
+//     {
+//       path: "/permission/button/index",
+//       name: "PermissionButton",
+//       meta: {
+//         title: "按钮权限",
+//         roles: ["admin", "common"],
+//         auths: ["btn_add", "btn_edit", "btn_delete"]
+//       }
+//     }
+//   ]
+// };
 
 // 网上选课
 const selectCourseRouter = {
@@ -206,7 +206,7 @@ export default [
       return {
         success: true,
         data: [
-          permissionRouter,
+          // permissionRouter,
           selectCourseRouter,
           eventJoinRoter,
           assessRoter,

@@ -124,9 +124,11 @@ const tagsChange = () => {
 };
 
 // const multiTagsCacheChange = () => {
-//   const multiTagsCache = settings.multiTagsCache;
-//   storageConfigureChange("multiTagsCache", multiTagsCache);
-//   useMultiTagsStoreHook().multiTagsCacheChange(multiTagsCache);
+// const multiTagsCache = settings.multiTagsCache;
+// 默认开启标签页持久化
+const multiTagsCache = true;
+storageConfigureChange("multiTagsCache", multiTagsCache);
+useMultiTagsStoreHook().multiTagsCacheChange(multiTagsCache);
 // };
 
 /** 清空缓存并返回登录页 */
