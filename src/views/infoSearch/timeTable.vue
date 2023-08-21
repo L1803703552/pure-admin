@@ -1,9 +1,11 @@
 <script setup lang="ts">
 defineOptions({
-  name: "Welcome"
+  name: "timeTable"
 });
 </script>
 
 <template>
-  <h1>欢迎界面</h1>
+  <div>课表</div>
 </template>
+
+<style lang="scss" scoped></style>

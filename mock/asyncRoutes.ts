@@ -12,7 +12,7 @@ const permissionRouter = {
   meta: {
     title: "权限管理",
     icon: "lollipop",
-    rank: 10
+    rank: 998
   },
   children: [
     {
@@ -35,6 +35,169 @@ const permissionRouter = {
   ]
 };
 
+// 网上选课
+const selectCourseRouter = {
+  path: "/selectCourse",
+  meta: {
+    title: "网上选课",
+    icon: "carbon:select-window",
+    rank: 10
+  },
+  children: [
+    {
+      path: "/selectCourse/All/index",
+      name: "selectCourseAll",
+      meta: {
+        title: "全校选修课"
+      }
+    },
+    {
+      path: "/selectCourse/Survey/index",
+      name: "selectCourseSurvey",
+      meta: {
+        title: "网上调查"
+      }
+    }
+  ]
+};
+
+// 活动报名
+const eventJoinRoter = {
+  path: "/eventJoin",
+  meta: {
+    title: "活动报名",
+    icon: "material-symbols:assignment-add-outline",
+    rank: 20
+  },
+  children: [
+    {
+      path: "/eventJoin/index",
+      name: "eventJoin",
+      meta: {
+        title: "活动报名"
+      }
+    }
+  ]
+};
+
+// 教学质量评价
+const assessRoter = {
+  path: "/assess",
+  meta: {
+    title: "教学质量评价",
+    icon: "ic:outline-assessment",
+    rank: 30
+  },
+  children: [
+    {
+      path: "/assess/index",
+      name: "assess",
+      meta: {
+        title: "教学质量评价"
+      }
+    }
+  ]
+};
+
+// 信息维护
+const infoManageRouter = {
+  path: "/infoManage",
+  meta: {
+    title: "信息维护",
+    icon: "material-symbols:admin-panel-settings-outline",
+    rank: 40
+  },
+  children: [
+    {
+      path: "/infoManage/User/index",
+      name: "infoManageUser",
+      meta: {
+        title: "个人信息"
+      }
+    },
+    {
+      path: "/infoManage/Password/index",
+      name: "infoManagePassword",
+      meta: {
+        title: "密码修改"
+      }
+    }
+  ]
+};
+
+// 信息查询
+const infoSearchRouter = {
+  path: "/infoSearch",
+  meta: {
+    title: "信息查询",
+    icon: "mdi:clipboard-text-search-outline",
+    rank: 50
+  },
+  children: [
+    {
+      path: "/infoSearch/timeTable",
+      name: "timeTable",
+      meta: {
+        title: "学生个人课表"
+      }
+    },
+    {
+      path: "/infoSearch/examQuery",
+      name: "examQuery",
+      meta: {
+        title: "学生考试查询"
+      }
+    },
+    {
+      path: "/infoSearch/scoreQuery",
+      name: "scoreQuery",
+      meta: {
+        title: "成绩查询"
+      }
+    },
+    {
+      path: "/infoSearch/gradeQuery",
+      name: "gradeQuery",
+      meta: {
+        title: "等级考试查询"
+      }
+    },
+    {
+      path: "/infoSearch/eduProgram",
+      name: "eduProgram",
+      meta: {
+        title: "培养计划"
+      }
+    },
+    {
+      path: "/infoSearch/courseSelQuery",
+      name: "courseSelQuery",
+      meta: {
+        title: "选课查询"
+      }
+    }
+  ]
+};
+
+// 毕业设计
+const gradDesignRoter = {
+  path: "/gradDesign",
+  meta: {
+    title: "毕业设计",
+    icon: "zondicons:education",
+    rank: 60
+  },
+  children: [
+    {
+      path: "/gradDesign/index",
+      name: "gradDesign",
+      meta: {
+        title: "毕业设计"
+      }
+    }
+  ]
+};
+
 export default [
   {
     url: "/getAsyncRoutes",
@@ -42,7 +205,15 @@ export default [
     response: () => {
       return {
         success: true,
-        data: [permissionRouter]
+        data: [
+          permissionRouter,
+          selectCourseRouter,
+          eventJoinRoter,
+          assessRoter,
+          infoManageRouter,
+          infoSearchRouter,
+          gradDesignRoter
+        ]
       };
     }
   }
