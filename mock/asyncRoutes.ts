@@ -142,17 +142,17 @@ const infoSearchRouter = {
       }
     },
     {
-      path: "/infoSearch/examQuery",
-      name: "examQuery",
-      meta: {
-        title: "学生考试查询"
-      }
-    },
-    {
       path: "/infoSearch/scoreQuery",
       name: "scoreQuery",
       meta: {
         title: "成绩查询"
+      }
+    },
+    {
+      path: "/infoSearch/examQuery",
+      name: "examQuery",
+      meta: {
+        title: "学生考试查询"
       }
     },
     {

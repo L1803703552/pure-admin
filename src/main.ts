@@ -7,8 +7,8 @@ import { createApp, Directive } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
 import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
-
-// import Table from "@pureadmin/table";
+// 二次封装组件
+import Table from "@pureadmin/table";
 import PureDescriptions from "@pureadmin/descriptions";
 
 // 引入重置样式
@@ -53,7 +53,7 @@ getServerConfig(app).then(async config => {
     .use(MotionPlugin)
     .use(ElementPlus)
     .use(useEcharts)
-    // .use(Table);
+    .use(Table)
     .use(PureDescriptions);
   app.mount("#app");
 });

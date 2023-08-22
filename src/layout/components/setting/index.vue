@@ -123,13 +123,13 @@ const tagsChange = () => {
   emitter.emit("tagViewsChange", showVal as unknown as string);
 };
 
-// const multiTagsCacheChange = () => {
-// const multiTagsCache = settings.multiTagsCache;
-// 默认开启标签页持久化
-const multiTagsCache = true;
-storageConfigureChange("multiTagsCache", multiTagsCache);
-useMultiTagsStoreHook().multiTagsCacheChange(multiTagsCache);
-// };
+const multiTagsCacheChange = () => {
+  const multiTagsCache = settings.multiTagsCache;
+  // 默认开启标签页持久化
+  // const multiTagsCache = true;
+  storageConfigureChange("multiTagsCache", multiTagsCache);
+  useMultiTagsStoreHook().multiTagsCacheChange(multiTagsCache);
+};
 
 /** 清空缓存并返回登录页 */
 function onReset() {
@@ -366,7 +366,7 @@ onBeforeMount(() => {
           @change="logoChange"
         />
       </li>
-      <!-- <li>
+      <li>
         <span class="dark:text-white">标签页持久化</span>
         <el-switch
           v-model="settings.multiTagsCache"
@@ -376,7 +376,7 @@ onBeforeMount(() => {
           inactive-text="关"
           @change="multiTagsCacheChange"
         />
-      </li> -->
+      </li>
 
       <li>
         <span class="dark:text-white">标签风格</span>
