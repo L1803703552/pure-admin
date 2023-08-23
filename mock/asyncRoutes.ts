@@ -45,14 +45,14 @@ const selectCourseRouter = {
   },
   children: [
     {
-      path: "/selectCourse/All/index",
+      path: "/selectCourse/selectCourseAll",
       name: "selectCourseAll",
       meta: {
         title: "全校选修课"
       }
     },
     {
-      path: "/selectCourse/Survey/index",
+      path: "/selectCourse/selectCourseSurvey",
       name: "selectCourseSurvey",
       meta: {
         title: "网上调查"
