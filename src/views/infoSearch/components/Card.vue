@@ -49,33 +49,37 @@ defineExpose({
       <template #header>
         <div class="card-header">
           <span class="font-medium">{{ title }}</span>
-          <div v-if="showSel">
-            <el-select
-              style="width: 120px"
-              @change="selectChange"
-              v-model="schoolYearValue"
-            >
-              <el-option
-                v-for="item in schoolYear"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-            学年第
-            <el-select
-              style="width: 60px"
-              @change="selectChange"
-              v-model="termValue"
-            >
-              <el-option
-                v-for="item in term"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-            学期
+          <div v-if="showSel" class="select">
+            <span>
+              学年：
+              <el-select
+                style="width: 120px"
+                @change="selectChange"
+                v-model="schoolYearValue"
+              >
+                <el-option
+                  v-for="item in schoolYear"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </span>
+            <span>
+              学期：
+              <el-select
+                style="width: 80px"
+                @change="selectChange"
+                v-model="termValue"
+              >
+                <el-option
+                  v-for="item in term"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </span>
           </div>
         </div>
       </template>
@@ -89,5 +93,9 @@ defineExpose({
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.select {
+  display: flex;
+  gap: 10px;
 }
 </style>

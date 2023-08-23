@@ -55,7 +55,7 @@ const columns: TableColumnList = [
     <el-card shadow="never">
       <template #header>
         <div class="card-header">
-          <span class="font-medium">考试详细信息</span>
+          <span class="font-medium">等级考试详细信息</span>
         </div>
       </template>
       <pure-table :data="gradeData" :columns="columns" border stripe />

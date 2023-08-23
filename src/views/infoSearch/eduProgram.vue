@@ -167,7 +167,7 @@ const onSearch = () => {
         <el-button @click="onSearch" type="primary" size="small"
           >查询</el-button
         >
-        <el-checkbox v-model="isReplace" label="可替换课程" />
+        <el-checkbox v-model="isReplace" label="可替换课程" size="small" />
       </div>
     </el-card>
 
