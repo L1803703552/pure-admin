@@ -980,6 +980,17 @@ const scoreData = [
   }
 ];
 
+// 未通过课程
+const unPassCourse = [
+  {
+    courseNumber: "0807516043",
+    courseName: "光通信技术",
+    credit: "3",
+    curriculum: "任选课",
+    highestScore: "50",
+    courseOwner: ""
+  }
+];
 export {
   examData,
   schoolYear,
@@ -987,5 +998,6 @@ export {
   gradeData,
   courseSelData,
   eduProgramData,
-  scoreData
+  scoreData,
+  unPassCourse
 };

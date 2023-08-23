@@ -95,6 +95,7 @@ const major = ref("光电信息科学与工程");
 const studyTerm = ref("6");
 const curriculum = ref("全部");
 const isReplace = ref(false);
+const isLoading = ref(false);
 
 const termList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const currList = [
@@ -111,6 +112,7 @@ const currList = [
 ];
 
 const onSearch = () => {
+  isLoading.value = true;
   console.log(
     grade.value,
     college.value,
@@ -119,6 +121,7 @@ const onSearch = () => {
     curriculum.value,
     isReplace.value
   );
+  isLoading.value = false;
 };
 </script>
 
@@ -179,6 +182,7 @@ const onSearch = () => {
       </template>
       <pure-table
         max-height="300"
+        :loading="isLoading"
         :data="eduProgramData"
         :columns="columns"
         size="small"
@@ -192,7 +196,15 @@ const onSearch = () => {
           <span class="font-medium">第二专业教学计划</span>
         </div>
       </template>
-      <pure-table :data="[]" size="small" :columns="columns" border stripe />
+      <pure-table
+        max-height="300"
+        :loading="isLoading"
+        :data="[]"
+        :columns="columns"
+        size="small"
+        border
+        stripe
+      />
     </el-card>
   </div>
 </template>

@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import Card from "./components/Card.vue";
+import { ref } from "vue";
+import SchoolYearSelect from "./components/SchoolYearSelect.vue";
 import { examData } from "./data";
 
 defineOptions({
   name: "examQuery"
 });
 
+const selectRef = ref();
+const isLoading = ref(false);
 const columns: TableColumnList = [
   {
     label: "选课课号",
@@ -48,19 +51,44 @@ const columns: TableColumnList = [
     width: 90
   }
 ];
-const onChange = (schoolYear, term) => {
-  // 代码逻辑：调用此方法说明右上角的选项改变了，向网络请求新的内容
-  // schoolYear: 学年，term: 学期
-  console.log(schoolYear, term);
+
+const onSearch = () => {
+  isLoading.value = true;
+  console.log(selectRef.value.schoolYearValue, selectRef.value.termValue);
+  isLoading.value = false;
 };
 </script>
 
 <template>
-  <Card :showSel="true" title="考试详细信息" @changeSel="onChange">
-    <template #default>
-      <pure-table :data="examData" :columns="columns" border stripe />
+  <el-card class="box-card" shadow="never">
+    <template #header>
+      <div class="card-header">
+        <span class="font-medium">考试详细信息</span>
+        <div class="select">
+          <SchoolYearSelect ref="selectRef" />
+          <el-button style="margin-left: 20px" type="primary" @click="onSearch">
+            查询
+          </el-button>
+        </div>
+      </div>
     </template>
-  </Card>
+    <pure-table
+      :loading="isLoading"
+      :data="examData"
+      :columns="columns"
+      border
+      stripe
+    />
+  </el-card>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .select {
+    display: flex;
+  }
+}
+</style>

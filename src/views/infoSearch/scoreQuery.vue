@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { schoolYear, term, scoreData } from "./data";
+import { scoreData, unPassCourse } from "./data";
+import SchoolYearSelect from "./components/SchoolYearSelect.vue";
 
 defineOptions({
   name: "scoreQuery"
 });
 
-const schoolYearValue = ref(schoolYear[0].value);
-const termValue = ref(term[0].value);
+const selectRef = ref();
 const isLoading = ref(false);
 const isHighest = ref(false);
 
@@ -93,11 +93,45 @@ const columns: TableColumnList = [
     width: 150
   }
 ];
+const colums2: TableColumnList = [
+  {
+    label: "课程代码",
+    prop: "courseNumber"
+  },
+  {
+    label: "课程名称",
+    prop: "courseName"
+  },
+  {
+    label: "学分",
+    prop: "credit"
+  },
+  {
+    label: "课程性质",
+    prop: "curriculum"
+  },
+  {
+    label: "最高成绩",
+    prop: "highestScore"
+  },
+  {
+    label: "课程归属",
+    prop: "courseOwner"
+  }
+];
+
+const onPrint = () => {
+  alert("打印数据");
+};
 
 const onSearch = () => {
   isLoading.value = true;
   // 请求数据
-  console.log(schoolYearValue.value, termValue.value, isHighest.value);
+  console.log(
+    selectRef.value.schoolYearValue,
+    selectRef.value.termValue,
+    isHighest.value
+  );
   isLoading.value = false;
 };
 </script>
@@ -108,40 +142,19 @@ const onSearch = () => {
       <template #header>
         <div class="card-header">
           <span class="font-medium">成绩查询</span>
-          <el-button type="danger">打印</el-button>
+          <el-button @click="onPrint" type="danger">打印</el-button>
         </div>
       </template>
       <div class="select">
-        <span>
-          学年：
-          <el-select style="width: 120px" v-model="schoolYearValue">
-            <el-option
-              v-for="item in schoolYear"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </span>
-        <span>
-          学期：
-          <el-select style="width: 80px" v-model="termValue">
-            <el-option
-              v-for="item in term"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </span>
+        <SchoolYearSelect ref="selectRef" />
         <el-checkbox
           v-model="isHighest"
           style="margin-left: 10px"
           label="最高成绩"
         />
-        <el-button @click="onSearch" type="primary" style="margin-left: 25px"
-          >查询</el-button
-        >
+        <el-button @click="onSearch" type="primary" style="margin-left: 25px">
+          查询
+        </el-button>
       </div>
     </el-card>
     <el-card class="m-4 box-card" shadow="never">
@@ -153,6 +166,7 @@ const onSearch = () => {
         size="small"
         :columns="columns"
         max-height="500"
+        :loading="isLoading"
         border
         stripe
       />
@@ -162,10 +176,10 @@ const onSearch = () => {
         <span class="font-medium">至今未通过课程</span>
       </template>
       <pure-table
-        :data="[]"
+        :data="unPassCourse"
+        :columns="colums2"
+        max-height="300"
         size="small"
-        :columns="columns"
-        max-height="500"
         border
         stripe
       />
