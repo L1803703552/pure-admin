@@ -71,7 +71,7 @@ const eventJoinRoter = {
   },
   children: [
     {
-      path: "/eventJoin/index",
+      path: "/eventJoin",
       name: "eventJoin",
       meta: {
         title: "活动报名"
@@ -90,7 +90,7 @@ const assessRoter = {
   },
   children: [
     {
-      path: "/assess/index",
+      path: "/assess",
       name: "assess",
       meta: {
         title: "教学质量评价"
@@ -189,7 +189,7 @@ const gradDesignRoter = {
   },
   children: [
     {
-      path: "/gradDesign/index",
+      path: "/gradDesign",
       name: "gradDesign",
       meta: {
         title: "毕业设计"

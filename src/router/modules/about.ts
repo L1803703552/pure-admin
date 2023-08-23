@@ -9,8 +9,8 @@ export default {
   },
   children: [
     {
-      path: "/about/index",
-      name: "test",
+      path: "/about",
+      name: "about",
       component: () => import("@/views/about/index.vue"),
       meta: {
         title: "关于网站"
