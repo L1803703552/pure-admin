@@ -109,14 +109,14 @@ const infoManageRouter = {
   },
   children: [
     {
-      path: "/infoManage/User/index",
+      path: "/infoManage/User",
       name: "infoManageUser",
       meta: {
         title: "个人信息"
       }
     },
     {
-      path: "/infoManage/Password/index",
+      path: "/infoManage/Password",
       name: "infoManagePassword",
       meta: {
         title: "密码修改"

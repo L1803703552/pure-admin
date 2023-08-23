@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { scoreData, unPassCourse } from "./data";
+import { scoreData, unPassCourse, creditState } from "./data";
 import SchoolYearSelect from "./components/SchoolYearSelect.vue";
 
 defineOptions({
@@ -119,9 +119,32 @@ const colums2: TableColumnList = [
     prop: "courseOwner"
   }
 ];
+const colums3: TableColumnList = [
+  {
+    label: "课程性质名称",
+    prop: "curriculum"
+  },
+  {
+    label: "学分要求",
+    prop: "credit"
+  },
+  {
+    label: "获得学分",
+    prop: "creditGetted"
+  },
+  {
+    label: "未通过学分",
+    prop: "creditUnPassed"
+  },
+  {
+    label: "还需学分",
+    prop: "creditSub"
+  }
+];
 
 const onPrint = () => {
-  alert("打印数据");
+  // 待优化
+  window.print();
 };
 
 const onSearch = () => {
@@ -145,16 +168,23 @@ const onSearch = () => {
           <el-button @click="onPrint" type="danger">打印</el-button>
         </div>
       </template>
-      <div class="select">
-        <SchoolYearSelect ref="selectRef" />
-        <el-checkbox
-          v-model="isHighest"
-          style="margin-left: 10px"
-          label="最高成绩"
-        />
-        <el-button @click="onSearch" type="primary" style="margin-left: 25px">
-          查询
-        </el-button>
+      <div class="card-header">
+        <div class="select">
+          <SchoolYearSelect ref="selectRef" />
+          <el-checkbox
+            v-model="isHighest"
+            style="margin-left: 10px"
+            label="最高成绩"
+          />
+          <el-button @click="onSearch" type="primary" style="margin-left: 25px">
+            查询
+          </el-button>
+        </div>
+        <div>
+          <el-text type="primary">本专业共42人</el-text>
+          <el-text type="primary">平均学分绩点：2.68</el-text>
+          <el-text type="primary">学分绩点总和：392.00</el-text>
+        </div>
       </div>
     </el-card>
     <el-card class="m-4 box-card" shadow="never">
@@ -184,6 +214,19 @@ const onSearch = () => {
         stripe
       />
     </el-card>
+    <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <span class="font-medium">学分修读情况</span>
+      </template>
+      <pure-table
+        :data="creditState"
+        :columns="colums3"
+        size="small"
+        show-summary
+        border
+        stripe
+      />
+    </el-card>
   </div>
 </template>
 
@@ -195,10 +238,16 @@ const onSearch = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 .select {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
+}
+.el-text {
+  margin: 0.25em 0.5em 0.25em 0;
+  padding: 0.25em 0.5em 0.25em 0;
 }
 </style>

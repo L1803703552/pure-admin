@@ -991,6 +991,73 @@ const unPassCourse = [
     courseOwner: ""
   }
 ];
+
+// 学分修读情况
+const creditState = [
+  {
+    curriculum: "必修课",
+    credit: "31",
+    creditGetted: "42",
+    creditUnPassed: "0",
+    creditSub: "0"
+  },
+  {
+    curriculum: "校公共选修课",
+    credit: "10",
+    creditGetted: "11",
+    creditUnPassed: "0",
+    creditSub: "0"
+  },
+  {
+    curriculum: "限选课",
+    credit: "11.50",
+    creditGetted: "11.50",
+    creditUnPassed: "0",
+    creditSub: "0"
+  },
+  {
+    curriculum: "任选课",
+    credit: "10",
+    creditGetted: "3.50",
+    creditUnPassed: "3",
+    creditSub: "6.50"
+  },
+  {
+    curriculum: "集中性实践",
+    credit: "35",
+    creditGetted: "15",
+    creditUnPassed: "0",
+    creditSub: "20"
+  },
+  {
+    curriculum: "课外培养必选",
+    credit: "7",
+    creditGetted: "1",
+    creditUnPassed: "0",
+    creditSub: "6"
+  },
+  {
+    curriculum: "课外培养任选",
+    credit: "3",
+    creditGetted: "0",
+    creditUnPassed: "0",
+    creditSub: "3"
+  },
+  {
+    curriculum: "通识课程必修",
+    credit: "72.50",
+    creditGetted: "59.50",
+    creditUnPassed: "0",
+    creditSub: "13"
+  },
+  {
+    curriculum: "通识课程选修",
+    credit: "0",
+    creditGetted: "0",
+    creditUnPassed: "0",
+    creditSub: "0"
+  }
+];
 export {
   examData,
   schoolYear,
@@ -999,5 +1066,6 @@ export {
   courseSelData,
   eduProgramData,
   scoreData,
-  unPassCourse
+  unPassCourse,
+  creditState
 };
