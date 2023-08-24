@@ -36,7 +36,7 @@ setOptions({
       type: "pie",
       top: "20%",
       radius: "80%",
-      center: ["40%", "50%"],
+      center: ["50%", "50%"],
       // color: ["#e6a23c", "#f56c6c", "#53a7ff"],
       data: [
         { value: 31, name: "必修课" },
