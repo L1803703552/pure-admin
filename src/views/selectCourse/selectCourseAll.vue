@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { message } from "@/utils/message";
+import { useThrottleFn } from "@vueuse/core";
 
 defineOptions({
   name: "selectCourseAll"
@@ -53,12 +54,12 @@ const columns: TableColumnList = [
   {
     label: "上课时间",
     prop: "classTime",
-    width: 120
+    minWidth: 120
   },
   {
     label: "上课地点",
     prop: "classLocation",
-    width: 100
+    width: 150
   },
   {
     label: "学分",
@@ -117,10 +118,10 @@ const onSearch = () => {
   console.log(formModel);
   isLoading.value = false;
 };
-const onSubmit = () => {
-  // 防抖节流⚠️
+const onSubmit = useThrottleFn(() => {
+  // 节流操作⚠️
   message("提交成功", { type: "success" });
-};
+}, 1000);
 </script>
 
 <template>
