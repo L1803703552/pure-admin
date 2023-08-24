@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { eduProgramData } from "./data";
 
 defineOptions({
@@ -89,12 +89,16 @@ const columns: TableColumnList = [
   }
 ];
 
-const grade = ref("2020");
-const college = ref("网络与通信工程学院");
-const major = ref("光电信息科学与工程");
-const studyTerm = ref("6");
-const curriculum = ref("全部");
-const isReplace = ref(false);
+const formModel = reactive({
+  grade: "2020",
+  college: "网络与通信工程学院",
+  major: "光电信息科学与工程",
+  studyTerm: "6",
+  curriculum: "全部",
+  isReplace: false
+});
+
+const isDisabled = ref(true);
 const isLoading = ref(false);
 
 const termList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
@@ -113,14 +117,7 @@ const currList = [
 
 const onSearch = () => {
   isLoading.value = true;
-  console.log(
-    grade.value,
-    college.value,
-    major.value,
-    studyTerm.value,
-    curriculum.value,
-    isReplace.value
-  );
+  console.log(formModel);
   isLoading.value = false;
 };
 </script>
@@ -133,45 +130,47 @@ const onSearch = () => {
           <span class="font-medium">培养计划</span>
         </div>
       </template>
-      <div class="text">
-        年级：
-        <el-select v-model="grade" disabled size="small" style="width: 80px" />
-        学院：
-        <el-select
-          size="small"
-          v-model="college"
-          style="width: 170px"
-          disabled
-        />
-        专业：
-        <el-select size="small" v-model="major" disabled />
-      </div>
-      <div class="text">
-        建议修读学期：
-        <el-select size="small" style="width: 50px" v-model="studyTerm">
-          <el-option
-            v-for="item in termList"
-            :key="item"
-            :label="item"
-            :value="item"
+      <el-form :model="formModel" :inline="true">
+        <el-form-item label="年级">
+          <el-select
+            v-model="formModel.grade"
+            :disabled="isDisabled"
+            style="width: 80px"
           />
-        </el-select>
-        课程性质：
-        <el-select size="small" style="width: 115px" v-model="curriculum">
-          <el-option
-            v-for="item in currList"
-            :key="item"
-            :label="item"
-            :value="item"
-          />
-        </el-select>
-      </div>
-      <div style="display: flex; align-items: center; gap: 10px">
-        <el-button @click="onSearch" type="primary" size="small"
-          >查询</el-button
-        >
-        <el-checkbox v-model="isReplace" label="可替换课程" size="small" />
-      </div>
+        </el-form-item>
+        <el-form-item label="学院">
+          <el-select v-model="formModel.college" :disabled="isDisabled" />
+        </el-form-item>
+        <el-form-item label="专业">
+          <el-select v-model="formModel.major" :disabled="isDisabled" />
+        </el-form-item>
+        <el-form-item label="建议修读学期">
+          <el-select v-model="formModel.studyTerm" style="width: 80px">
+            <el-option
+              v-for="item in termList"
+              :key="item"
+              :label="item"
+              :value="item"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="课程性质">
+          <el-select v-model="formModel.curriculum" style="width: 150px">
+            <el-option
+              v-for="item in currList"
+              :key="item"
+              :label="item"
+              :value="item"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-checkbox v-model="formModel.isReplace" label="可替换课程" />
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="onSearch" type="primary"> 查询 </el-button>
+        </el-form-item>
+      </el-form>
     </el-card>
 
     <el-card class="m-4 box-card" shadow="never">
@@ -213,9 +212,9 @@ const onSearch = () => {
 .main-content {
   margin: 0 !important;
 }
-.text {
-  font-size: 14px;
-  margin-bottom: 10px;
-  line-height: 15px;
+:deep() {
+  label {
+    font-weight: normal;
+  }
 }
 </style>
