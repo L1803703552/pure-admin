@@ -2,11 +2,15 @@
 import { ref, reactive } from "vue";
 import { message } from "@/utils/message";
 import { useThrottleFn } from "@vueuse/core";
+import { selCourseData, selectedData } from "./data";
+import { ElTable } from "element-plus";
 
 defineOptions({
   name: "selectCourseAll"
 });
 
+const isLoading = ref(false);
+// 第一个card里面的表单数据
 const formModel = reactive({
   curriculum: "全部",
   isMargin: "全部",
@@ -15,8 +19,6 @@ const formModel = reactive({
   classTime: "全部",
   courseName: ""
 });
-
-const isLoading = ref(false);
 const currList = ["全部", "校公共选修课", "通识课程选修"];
 const campusList = ["全部", "江宁校区", "幕府校区", "白下校区", "校外办学点"];
 const classTimeList = [
@@ -26,93 +28,16 @@ const classTimeList = [
   "周二第10,11,12节{第4-15周}",
   "周四第10,11,12节{第4-15周}"
 ];
-const columns: TableColumnList = [
-  {
-    type: "selection",
-    width: 60
-  },
-  {
-    label: "预定教材",
-    prop: "orderBook",
-    width: 80
-  },
-  {
-    label: "课程名称",
-    prop: "courseName",
-    width: 130
-  },
-  {
-    label: "课程代码",
-    prop: "courseNumber",
-    width: 90
-  },
-  {
-    label: "教师姓名",
-    prop: "teacherName",
-    width: 80
-  },
-  {
-    label: "上课时间",
-    prop: "classTime",
-    minWidth: 120
-  },
-  {
-    label: "上课地点",
-    prop: "classLocation",
-    width: 150
-  },
-  {
-    label: "学分",
-    prop: "credit",
-    width: 50
-  },
-  {
-    label: "周学时",
-    prop: "weekHour",
-    width: 80
-  },
-  {
-    label: "起始结束周",
-    prop: "startEndWeek",
-    width: 100
-  },
-  {
-    label: "容量",
-    prop: "count",
-    width: 60
-  },
-  {
-    label: "余量",
-    prop: "margin",
-    width: 50
-  },
-  {
-    label: "课程归属",
-    prop: "courseOwner",
-    width: 120
-  },
-  {
-    label: "课程性质",
-    prop: "curriculum",
-    width: 120
-  },
-  {
-    label: "校区代码",
-    prop: "campus",
-    width: 90
-  },
-  {
-    label: "开课学院",
-    prop: "college",
-    width: 170
-  },
-  {
-    label: "考试时间",
-    prop: "examTime",
-    width: 80
-  }
-];
-const columns2: TableColumnList = [];
+
+// 表格
+const maxSel = 2; // 最多选课数量
+let alSel = 0; // 之前已选数量
+const multipleSelection = ref([]);
+const handleSelChange = val => {
+  multipleSelection.value = val;
+};
+
+// 按钮实现
 const onSearch = () => {
   isLoading.value = true;
   console.log(formModel);
@@ -120,7 +45,12 @@ const onSearch = () => {
 };
 const onSubmit = useThrottleFn(() => {
   // 节流操作⚠️
-  message("提交成功", { type: "success" });
+  if (multipleSelection.value.length + alSel > maxSel) {
+    message(`选课数量不能超过${maxSel}门，你已选${alSel}门`, { type: "error" });
+  } else {
+    alSel += multipleSelection.value.length;
+    message("提交成功", { type: "success" });
+  }
 }, 1000);
 </script>
 
@@ -175,7 +105,12 @@ const onSubmit = useThrottleFn(() => {
           </el-select>
         </el-form-item>
         <el-form-item label="课程名称">
-          <el-input type="text" v-model="formModel.courseName" />
+          <el-input
+            type="text"
+            v-model="formModel.courseName"
+            style="width: 200px"
+            clearable
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSearch">查询</el-button>
@@ -189,27 +124,86 @@ const onSubmit = useThrottleFn(() => {
           <el-button type="primary" @click="onSubmit">提交</el-button>
         </div>
       </template>
-      <pure-table
-        :data="[]"
+      <!-- 二次封装的table在使用:show-overflow-tooltip时会出错，直接用el-table -->
+      <el-table
+        :data="selCourseData"
         :loading="isLoading"
-        :columns="columns"
+        max-height="500"
         size="small"
+        @selection-change="handleSelChange"
         border
         stripe
-      />
+      >
+        <el-table-column type="selection" width="40" />
+        <el-table-column property="courseName" label="课程名称" width="150" />
+        <el-table-column property="courseNumber" label="课程代码" width="90" />
+        <el-table-column property="teacherName" label="教师姓名" width="80" />
+        <el-table-column
+          property="classTime"
+          label="上课时间"
+          :show-overflow-tooltip="true"
+          minWidth="150"
+        />
+        <el-table-column
+          property="classLocation"
+          label="上课地点"
+          :show-overflow-tooltip="true"
+          minWidth="150"
+        />
+        <el-table-column property="credit" label="学分" width="50" />
+        <el-table-column property="weekHour" label="周学时" width="80" />
+        <el-table-column
+          property="startEndWeek"
+          label="起始结束周"
+          width="100"
+        />
+        <el-table-column property="count" label="容量" width="60" />
+        <el-table-column property="margin" label="余量" width="50" />
+        <el-table-column property="courseOwner" label="课程归属" width="120" />
+        <el-table-column property="curriculum" label="课程性质" width="120" />
+        <el-table-column property="campusNumber" label="校区代码" width="90" />
+        <el-table-column property="college" label="开课学院" width="170" />
+        <el-table-column property="examTime" label="考试时间" width="80" />
+      </el-table>
     </el-card>
     <el-card class="m-4 box-card" shadow="never">
       <template #header>
         <span class="font-medium">已选课程</span>
       </template>
-      <pure-table
-        :data="[]"
+      <el-table
+        :data="selectedData"
         :loading="isLoading"
-        :columns="columns2"
         size="small"
         border
         stripe
-      />
+      >
+        <el-table-column property="courseName" label="课程名称" width="150" />
+        <el-table-column property="teacherName" label="教师姓名" width="80" />
+        <el-table-column property="credit" label="学分" width="50" />
+        <el-table-column property="weekHour" label="周学时" width="80" />
+        <el-table-column
+          property="startEndWeek"
+          label="起始结束周"
+          width="100"
+        />
+        <el-table-column property="campus" label="校区" width="90" />
+        <el-table-column
+          property="classTime"
+          label="上课时间"
+          :show-overflow-tooltip="true"
+          minWidth="150"
+        />
+        <el-table-column
+          property="classLocation"
+          label="上课地点"
+          :show-overflow-tooltip="true"
+          minWidth="150"
+        />
+        <el-table-column property="orderBook" label="教材" width="80" />
+        <el-table-column property="courseOwner" label="课程归属" width="120" />
+        <el-table-column property="curriculum" label="课程性质" width="120" />
+        <el-table-column property="campusNumber" label="校区代码" width="90" />
+      </el-table>
     </el-card>
   </div>
 </template>
@@ -227,5 +221,10 @@ const onSubmit = useThrottleFn(() => {
   label {
     font-weight: normal;
   }
+}
+.tableContext {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>

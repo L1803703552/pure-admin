@@ -63,7 +63,7 @@ html.dark {
 
   .el-backtop {
     --el-backtop-bg-color: var(--el-color-primary-light-9);
-    --el-backtop-hover-bg-color: var(--el-color-primary);
+    --el-backtop-hover-bg-color: var(--el-border-color-extra-light);
   }
 
   .el-dropdown-menu__item:not(.is-disabled):hover {
