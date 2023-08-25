@@ -1,16 +1,35 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { schoolYear, term } from "../data";
 
 defineOptions({
   name: "SchoolYearSelect"
 });
 
-const schoolYearValue = ref(schoolYear[0].value);
-const termValue = ref(term[0].value);
+interface obj {
+  label: string;
+  value: string;
+}
+
+const props = defineProps({
+  schoolYear: {
+    type: Array<obj>,
+    required: true
+  },
+  term: {
+    type: Array<obj>,
+    required: true
+  }
+});
+
 const subDisabled = ref(true);
 
-// 选项改变时通知父组件
+const schoolYearValue = ref(props.schoolYear[0].value);
+const termValue = ref(props.term[0].value);
+
+if (termValue.value !== "all") {
+  subDisabled.value = false;
+}
+// 选项改变时操作
 const selectChange = val => {
   if (val === "all") {
     termValue.value = "all";
@@ -37,7 +56,7 @@ defineExpose({
         v-model="schoolYearValue"
       >
         <el-option
-          v-for="item in schoolYear"
+          v-for="item in props.schoolYear"
           :key="item.value"
           :label="item.label"
           :value="item.value"
@@ -52,7 +71,7 @@ defineExpose({
         :disabled="subDisabled"
       >
         <el-option
-          v-for="item in term"
+          v-for="item in props.term"
           :key="item.value"
           :label="item.label"
           :value="item.value"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SchoolYearSelect from "./components/SchoolYearSelect.vue";
-import { examData } from "./data";
+import { examData, schoolYear, term } from "./data";
 
 defineOptions({
   name: "examQuery"
@@ -65,7 +65,11 @@ const onSearch = () => {
       <div class="card-header">
         <span class="font-medium">考试详细信息</span>
         <div class="filterForm">
-          <SchoolYearSelect ref="selectRef" />
+          <SchoolYearSelect
+            :schoolYear="schoolYear"
+            :term="term"
+            ref="selectRef"
+          />
           <el-button type="primary" @click="onSearch"> 查询 </el-button>
         </div>
       </div>

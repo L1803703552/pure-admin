@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SchoolYearSelect from "./components/SchoolYearSelect.vue";
-import { courseSelData } from "./data";
+import { courseSelData, schoolYear, term } from "./data";
 
 defineOptions({
   name: "courseSelQuery"
@@ -105,7 +105,11 @@ const onSearch = () => {
       <div class="card-header">
         <span class="font-medium">学生选课信息</span>
         <div class="filterForm">
-          <SchoolYearSelect ref="selectRef" />
+          <SchoolYearSelect
+            :schoolYear="schoolYear"
+            :term="term"
+            ref="selectRef"
+          />
           <el-button type="primary" @click="onSearch"> 查询 </el-button>
           <el-switch v-model="showTooltip" active-text="显示完整内容" />
         </div>

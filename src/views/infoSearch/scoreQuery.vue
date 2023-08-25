@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { scoreData, unPassCourse, creditState } from "./data";
+import { scoreData, unPassCourse, creditState, schoolYear, term } from "./data";
 import SchoolYearSelect from "./components/SchoolYearSelect.vue";
 
 defineOptions({
@@ -170,7 +170,11 @@ const onSearch = () => {
       </template>
       <div class="card-header">
         <div class="filterForm">
-          <SchoolYearSelect ref="selectRef" />
+          <SchoolYearSelect
+            :schoolYear="schoolYear"
+            :term="term"
+            ref="selectRef"
+          />
           <el-checkbox v-model="isHighest" label="最高成绩" />
           <el-button @click="onSearch" type="primary"> 查询 </el-button>
         </div>
