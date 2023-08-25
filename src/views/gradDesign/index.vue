@@ -5,7 +5,14 @@ defineOptions({
 </script>
 
 <template>
-  <div>毕业设计</div>
+  <el-card class="m-4 box-card" shadow="never">
+    <template #header>
+      <div class="card-header">
+        <span class="font-medium">毕业设计</span>
+      </div>
+    </template>
+    敬请期待
+  </el-card>
 </template>
 
 <style lang="scss" scoped></style>

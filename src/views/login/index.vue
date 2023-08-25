@@ -8,9 +8,14 @@ import type { FormInstance } from "element-plus";
 import { useLayout } from "@/layout/hooks/useLayout";
 import { useUserStoreHook } from "@/store/modules/user";
 import { initRouter, getTopMenu } from "@/router/utils";
-import { bg, avatar, illustration } from "./utils/static";
+import {
+  bg,
+  // avatar,
+  illustration
+} from "./utils/static";
+import { ReImageVerify } from "@/components/ReImageVerify";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
+import { ref, reactive, watch, toRaw, onMounted, onBeforeUnmount } from "vue";
 import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
 
 import dayIcon from "@/assets/svg/day.svg?component";
@@ -21,6 +26,8 @@ import User from "@iconify-icons/ri/user-3-fill";
 defineOptions({
   name: "Login"
 });
+
+const imgCode = ref("");
 const router = useRouter();
 const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
@@ -35,7 +42,8 @@ const { title } = useNav();
 // 默认显示的用户名密码
 const ruleForm = reactive({
   username: "admin",
-  password: "admin123"
+  password: "admin123",
+  verifyCode: ""
 });
 
 const onLogin = async (formEl: FormInstance | undefined) => {
@@ -78,6 +86,10 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.document.removeEventListener("keypress", onkeypress);
 });
+
+watch(imgCode, value => {
+  useUserStoreHook().SET_VERIFYCODE(value);
+});
 </script>
 
 <template>
@@ -99,7 +111,14 @@ onBeforeUnmount(() => {
       </div>
       <div class="login-box">
         <div class="login-form">
-          <avatar class="avatar" />
+          <!-- <avatar class="avatar" /> -->
+          <div style="display: flex; justify-content: center">
+            <img
+              src="@/assets/login/avatar.png"
+              style="width: 120px"
+              alt="logo"
+            />
+          </div>
           <Motion>
             <h2 class="outline-none">{{ title }}</h2>
           </Motion>
@@ -139,6 +158,21 @@ onBeforeUnmount(() => {
                   placeholder="密码"
                   :prefix-icon="useRenderIcon(Lock)"
                 />
+              </el-form-item>
+            </Motion>
+            <!-- 验证码 -->
+            <Motion :delay="200">
+              <el-form-item prop="verifyCode">
+                <el-input
+                  clearable
+                  v-model="ruleForm.verifyCode"
+                  placeholder="验证码"
+                  :prefix-icon="useRenderIcon('ri:shield-keyhole-line')"
+                >
+                  <template v-slot:append>
+                    <ReImageVerify v-model:code="imgCode" />
+                  </template>
+                </el-input>
               </el-form-item>
             </Motion>
 

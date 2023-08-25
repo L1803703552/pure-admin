@@ -1058,6 +1058,48 @@ const creditState = [
     creditSub: "0"
   }
 ];
+
+// 调、停（补）课信息
+const changeCourseData = [
+  {
+    courseNumber: "调0250",
+    courseName: "思想道德修养与法律基础",
+    oldInfo: "周1第7节连续2节{第7-7周}/1332（多媒体）/陈光连",
+    newInfo: "周7第5节连续2节{第10-10周双周}/1332（多媒体）/陈光连",
+    applyTime: "2020-10-10-21-15"
+  },
+  {
+    courseNumber: "调0259",
+    courseName: "思想道德修养与法律基础",
+    oldInfo: "周5第5节连续2节{第7-7周}/6300（多媒体）/陈光连",
+    newInfo: "周7第5节连续2节{第8-8周双周}/6300（多媒体）/陈光连",
+    applyTime: "2020-10-12-08-54"
+  }
+];
+
+// 实践课(或无上课时间)信息
+const practCourseData = [
+  {
+    courseName: "毕业实习",
+    teacherName: "朱荣刚",
+    credit: "4",
+    startEndWeek: "01-04",
+    classTime: "",
+    classLocation: ""
+  }
+];
+
+// 未安排上课时间的课程
+const unScheduledData = [
+  {
+    schoolYear: "2023-2024",
+    term: "1",
+    courseName: "毕业实习",
+    teacherName: "朱荣刚",
+    credit: "4"
+  }
+];
+
 export {
   examData,
   schoolYear,
@@ -1067,5 +1109,8 @@ export {
   eduProgramData,
   scoreData,
   unPassCourse,
-  creditState
+  creditState,
+  changeCourseData,
+  practCourseData,
+  unScheduledData
 };

@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { schoolYear, term } from "./data";
+import {
+  schoolYear,
+  term,
+  changeCourseData,
+  practCourseData,
+  unScheduledData
+} from "./data";
 import { clone } from "@pureadmin/utils";
 import SchoolYearSelect from "./components/SchoolYearSelect.vue";
 defineOptions({
@@ -9,9 +15,151 @@ defineOptions({
 
 const selectRef = ref();
 const isLoading = ref(false);
-
+const columns: TableColumnList = [
+  {
+    label: "时间",
+    prop: "time"
+  },
+  {
+    label: "星期一",
+    prop: "Monday"
+  },
+  {
+    label: "星期二",
+    prop: "Tuesday"
+  },
+  {
+    label: "星期三",
+    prop: "Wednesday"
+  },
+  {
+    label: "星期四",
+    prop: "Thursday"
+  },
+  {
+    label: "星期五",
+    prop: "Friday"
+  },
+  {
+    label: "星期六",
+    prop: "Saturday"
+  },
+  {
+    label: "星期日",
+    prop: "Sunday"
+  }
+];
+// 调、停（补）课信息
+const columns2: TableColumnList = [
+  {
+    label: "编号",
+    prop: "courseNumber",
+    width: 100
+  },
+  {
+    label: "课程名称",
+    prop: "courseName",
+    width: 220
+  },
+  {
+    label: "原上课时间地点教师",
+    prop: "oldInfo",
+    minWidth: 200
+  },
+  {
+    label: "现上课时间地点教师",
+    prop: "newInfo",
+    minWidth: 200
+  },
+  {
+    label: "申请时间",
+    prop: "applyTime",
+    width: 180
+  }
+];
+// 实践课(或无上课时间)信息
+const columns3: TableColumnList = [
+  {
+    label: "课程名称",
+    prop: "courseName"
+  },
+  {
+    label: "教师",
+    prop: "teacherName"
+  },
+  {
+    label: "学分",
+    prop: "credit"
+  },
+  {
+    label: "起止周",
+    prop: "startEndWeek"
+  },
+  {
+    label: "上课时间",
+    prop: "classTime"
+  },
+  {
+    label: "上课地点",
+    prop: "classLocation"
+  }
+];
+// 实习课信息
+const columns4: TableColumnList = [
+  {
+    label: "学年",
+    prop: "schoolYear"
+  },
+  {
+    label: "学期",
+    prop: "term"
+  },
+  {
+    label: "课程名称",
+    prop: "courseName"
+  },
+  {
+    label: "实习时间",
+    prop: "interTime"
+  },
+  {
+    label: "模块代号",
+    prop: "moduleNumber"
+  },
+  {
+    label: "先修模块",
+    prop: "placeModule"
+  },
+  {
+    label: "实习编号",
+    prop: "interNumber"
+  }
+];
+// 未安排上课时间的课程
+const columns5: TableColumnList = [
+  {
+    label: "学年",
+    prop: "schoolYear"
+  },
+  {
+    label: "学期",
+    prop: "term"
+  },
+  {
+    label: "课程名称",
+    prop: "courseName"
+  },
+  {
+    label: "教师姓名",
+    prop: "teacherName"
+  },
+  {
+    label: "学分",
+    prop: "credit"
+  }
+];
 // 课表查询不存在“全部”选项，由于是从data里面导出的，在实际Ajax请求的时候要去掉
-const schoolYearCopy = clone(schoolYear, true);
+const schoolYearCopy = clone(schoolYear, true); // 深拷贝
 const termCopy = clone(term, true);
 if (schoolYearCopy[0].value === "all") {
   schoolYearCopy.shift();
@@ -26,25 +174,71 @@ const onSearch = () => {
 </script>
 
 <template>
-  <el-card class="box-card" shadow="never">
-    <template #header>
-      <div class="card-header">
-        <span class="font-medium">学生个人课程表</span>
-        <div class="filterForm">
-          <SchoolYearSelect
-            :schoolYear="schoolYearCopy"
-            :term="termCopy"
-            ref="selectRef"
-          />
-          <el-button type="primary" @click="onSearch"> 查询 </el-button>
+  <div>
+    <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <div class="card-header">
+          <span class="font-medium">学生个人课程表</span>
+          <div class="filterForm">
+            <SchoolYearSelect
+              :schoolYear="schoolYearCopy"
+              :term="termCopy"
+              ref="selectRef"
+            />
+            <el-button type="primary" @click="onSearch"> 查询 </el-button>
+          </div>
         </div>
-      </div>
-    </template>
-    123
-  </el-card>
+      </template>
+      课表太tm复杂了，做到吐
+      <pure-table
+        alignWhole="center"
+        :data="[]"
+        :columns="columns"
+        border
+        stripe
+      />
+    </el-card>
+
+    <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <span class="font-medium">调、停（补）课信息</span>
+      </template>
+      <pure-table
+        :data="changeCourseData"
+        :columns="columns2"
+        :showOverflowTooltip="true"
+        border
+        stripe
+      />
+    </el-card>
+
+    <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <span class="font-medium">实践课(或无上课时间)信息</span>
+      </template>
+      <pure-table :data="practCourseData" :columns="columns3" border stripe />
+    </el-card>
+
+    <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <span class="font-medium">实习课信息</span>
+      </template>
+      <pure-table :data="[]" :columns="columns4" border stripe />
+    </el-card>
+
+    <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <span class="font-medium">未安排上课时间的课程</span>
+      </template>
+      <pure-table :data="unScheduledData" :columns="columns5" border stripe />
+    </el-card>
+  </div>
 </template>
 
 <style lang="scss" scoped>
+.main-content {
+  margin: 0 !important;
+}
 .card-header {
   display: flex;
   justify-content: space-between;

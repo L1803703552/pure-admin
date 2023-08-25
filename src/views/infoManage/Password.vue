@@ -44,10 +44,11 @@ const onClear = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
 };
-const onSubmit = (formEl: FormInstance | undefined) => {
-  formEl.validate();
+const onSubmit = async (formEl: FormInstance | undefined) => {
+  await formEl.validate().then(() => {
+    message("修改成功", { type: "success" });
+  });
   console.log(formModel);
-  message("修改成功", { type: "success" });
 };
 </script>
 
