@@ -105,12 +105,7 @@ const onSubmit = useThrottleFn(() => {
           </el-select>
         </el-form-item>
         <el-form-item label="课程名称">
-          <el-input
-            type="text"
-            v-model="formModel.courseName"
-            style="width: 200px"
-            clearable
-          />
+          <el-input type="text" v-model="formModel.courseName" clearable />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSearch">查询</el-button>

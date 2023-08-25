@@ -23,12 +23,12 @@ const columns: TableColumnList = [
   {
     label: "课程名称",
     prop: "courseName",
-    width: 130
+    width: 150
   },
   {
     label: "课程性质",
     prop: "courseType",
-    width: 80
+    width: 100
   },
   {
     label: "是否选课",
@@ -52,11 +52,13 @@ const columns: TableColumnList = [
   },
   {
     label: "上课时间",
-    prop: "classTime"
+    prop: "classTime",
+    minWidth: 170
   },
   {
     label: "上课地点",
-    prop: "classLocation"
+    prop: "classLocation",
+    minWidth: 170
   },
   {
     label: "教材",
@@ -89,7 +91,7 @@ const columns: TableColumnList = [
     width: 70
   }
 ];
-
+const showTooltip = ref(false);
 const onSearch = () => {
   isLoading.value = true;
   console.log(selectRef.value.schoolYearValue, selectRef.value.termValue);
@@ -102,11 +104,10 @@ const onSearch = () => {
     <template #header>
       <div class="card-header">
         <span class="font-medium">学生选课信息</span>
-        <div class="select">
+        <div class="filterForm">
           <SchoolYearSelect ref="selectRef" />
-          <el-button style="margin-left: 20px" type="primary" @click="onSearch">
-            查询
-          </el-button>
+          <el-button type="primary" @click="onSearch"> 查询 </el-button>
+          <el-switch v-model="showTooltip" active-text="显示完整内容" />
         </div>
       </div>
     </template>
@@ -114,6 +115,8 @@ const onSearch = () => {
       :loading="isLoading"
       :data="courseSelData"
       :columns="columns"
+      :show-overflow-tooltip="!showTooltip"
+      size="small"
       border
       stripe
     />
@@ -125,8 +128,11 @@ const onSearch = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .select {
+  flex-wrap: wrap;
+  .filterForm {
     display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 }
 </style>

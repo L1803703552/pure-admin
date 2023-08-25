@@ -64,11 +64,9 @@ const onSearch = () => {
     <template #header>
       <div class="card-header">
         <span class="font-medium">考试详细信息</span>
-        <div class="select">
+        <div class="filterForm">
           <SchoolYearSelect ref="selectRef" />
-          <el-button style="margin-left: 20px" type="primary" @click="onSearch">
-            查询
-          </el-button>
+          <el-button type="primary" @click="onSearch"> 查询 </el-button>
         </div>
       </div>
     </template>
@@ -87,8 +85,11 @@ const onSearch = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .select {
+  flex-wrap: wrap;
+  .filterForm {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
   }
 }
 </style>

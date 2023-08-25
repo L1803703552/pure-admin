@@ -169,16 +169,10 @@ const onSearch = () => {
         </div>
       </template>
       <div class="card-header">
-        <div class="select">
+        <div class="filterForm">
           <SchoolYearSelect ref="selectRef" />
-          <el-checkbox
-            v-model="isHighest"
-            style="margin-left: 10px"
-            label="最高成绩"
-          />
-          <el-button @click="onSearch" type="primary" style="margin-left: 25px">
-            查询
-          </el-button>
+          <el-checkbox v-model="isHighest" label="最高成绩" />
+          <el-button @click="onSearch" type="primary"> 查询 </el-button>
         </div>
         <div>
           <el-text type="primary">本专业共42人</el-text>
@@ -240,11 +234,11 @@ const onSearch = () => {
   align-items: center;
   flex-wrap: wrap;
 }
-.select {
+.filterForm {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
 }
 .el-text {
   margin: 0.25em 0.5em 0.25em 0;

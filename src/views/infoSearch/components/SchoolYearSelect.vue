@@ -28,7 +28,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="select">
+  <div class="compSelect">
     <span>
       学年：
       <el-select
@@ -63,7 +63,7 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
-.select {
+.compSelect {
   display: flex;
   gap: 10px;
 }
