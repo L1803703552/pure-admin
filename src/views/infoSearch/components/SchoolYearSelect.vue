@@ -84,6 +84,8 @@ defineExpose({
 <style lang="scss" scoped>
 .compSelect {
   display: flex;
+  align-content: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 </style>

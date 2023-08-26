@@ -146,6 +146,7 @@ const onSearch = () => {
         </el-form-item>
         <el-form-item label="建议修读学期">
           <el-select v-model="formModel.studyTerm" style="width: 80px">
+            <el-option label="全部" value="all" />
             <el-option
               v-for="item in termList"
               :key="item"
