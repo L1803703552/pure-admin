@@ -1,10 +1,30 @@
 <script setup lang="ts">
 import { useColumns } from "./columns";
+import { ref } from "vue";
+import { useResizeObserver } from "@vueuse/core";
 defineOptions({
   // name 作为一种规范最好必须写上并且和路由的name保持一致
   name: "about"
 });
 const { columns } = useColumns();
+const el = ref();
+const col = ref(3);
+
+useResizeObserver(el, entries => {
+  const entry = entries[0];
+  const { width } = entry.contentRect;
+  if (width <= 650) {
+    col.value = 1;
+  } else if (width <= 1100) {
+    col.value = 2;
+  } else if (width <= 1920) {
+    col.value = 3;
+  } else if (width <= 2560) {
+    col.value = 4;
+  } else {
+    col.value = 5;
+  }
+});
 </script>
 
 <template>
@@ -62,7 +82,13 @@ const { columns } = useColumns();
           <span class="font-medium">开发信息</span>
         </div>
       </template>
-      <PureDescriptions :columns="columns" border :column="2" align="left" />
+      <PureDescriptions
+        ref="el"
+        :columns="columns"
+        border
+        :column="col"
+        align="left"
+      />
     </el-card>
   </div>
 </template>
