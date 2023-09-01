@@ -1100,6 +1100,73 @@ const unScheduledData = [
   }
 ];
 
+// 课表数据
+const timeTableData = [
+  {
+    time: "早晨"
+  },
+  {
+    time: "上午",
+    section: "第1节",
+    Monday: "123"
+  },
+  {
+    time: "上午",
+    section: "第2节",
+    Monday: "123"
+  },
+  {
+    time: "上午",
+    section: "第3节",
+    Monday: "123"
+  },
+  {
+    time: "上午",
+    section: "第4节",
+    Monday: "123"
+  },
+  {
+    time: "下午",
+    section: "第5节",
+    Monday: "123"
+  },
+  {
+    time: "下午",
+    section: "第6节",
+    Monday: "123"
+  },
+  {
+    time: "下午",
+    section: "第7节",
+    Monday: "123"
+  },
+  {
+    time: "下午",
+    section: "第8节",
+    Monday: "123"
+  },
+  {
+    time: "下午",
+    section: "第9节",
+    Monday: "123"
+  },
+  {
+    time: "晚上",
+    section: "第10节",
+    Monday: "123"
+  },
+  {
+    time: "晚上",
+    section: "第11节",
+    Monday: "123"
+  },
+  {
+    time: "晚上",
+    section: "第12节",
+    Monday: "123"
+  }
+];
+
 export {
   examData,
   schoolYear,
@@ -1112,5 +1179,6 @@ export {
   creditState,
   changeCourseData,
   practCourseData,
-  unScheduledData
+  unScheduledData,
+  timeTableData
 };

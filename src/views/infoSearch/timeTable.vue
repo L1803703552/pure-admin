@@ -5,7 +5,8 @@ import {
   term,
   changeCourseData,
   practCourseData,
-  unScheduledData
+  unScheduledData,
+  timeTableData
 } from "./data";
 import { clone } from "@pureadmin/utils";
 import SchoolYearSelect from "./components/SchoolYearSelect.vue";
@@ -18,7 +19,12 @@ const isLoading = ref(false);
 const columns: TableColumnList = [
   {
     label: "时间",
-    prop: "time"
+    prop: "time",
+    width: 30
+  },
+  {
+    prop: "section",
+    width: 35
   },
   {
     label: "星期一",
@@ -166,6 +172,38 @@ if (schoolYearCopy[0].value === "all") {
   termCopy.shift();
 }
 
+// 课表合并
+interface SpanMethodProps {
+  row: any;
+  column: any;
+  rowIndex: number;
+  columnIndex: number;
+}
+const timeTableSpanMethod = ({ rowIndex, columnIndex }: SpanMethodProps) => {
+  // console.log(row, column, rowIndex, columnIndex);
+  if (columnIndex === 0) {
+    if (rowIndex === 0) {
+      return [1, 2];
+    } else if (rowIndex === 1) {
+      return [4, 1];
+    } else if (rowIndex === 5) {
+      return [5, 1];
+    } else if (rowIndex === 10) {
+      return [3, 1];
+    } else {
+      return [0, 0];
+    }
+  }
+};
+const handerMethod = ({ row, columnIndex }) => {
+  if (columnIndex === 1) {
+    row[0].colSpan = 2;
+    return {
+      display: "none"
+    };
+  }
+};
+
 const onSearch = () => {
   isLoading.value = true;
   console.log(selectRef.value.schoolYearValue, selectRef.value.termValue);
@@ -189,13 +227,14 @@ const onSearch = () => {
           </div>
         </div>
       </template>
-      课表太tm复杂了，做到吐
       <pure-table
         alignWhole="center"
-        :data="[]"
+        :data="timeTableData"
         :columns="columns"
+        size="small"
+        :span-method="timeTableSpanMethod"
+        :header-cell-style="handerMethod"
         border
-        stripe
       />
     </el-card>
 
