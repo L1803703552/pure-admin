@@ -198,6 +198,7 @@ const timeTableSpanMethod = ({ rowIndex, columnIndex }: SpanMethodProps) => {
 const handerMethod = ({ row, columnIndex }) => {
   if (columnIndex === 1) {
     row[0].colSpan = 2;
+    row[1].colSpan = 0;
     return {
       display: "none"
     };
