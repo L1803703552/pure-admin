@@ -13,11 +13,12 @@ const columns: TableColumnList = [
   {
     label: "学期",
     prop: "term",
-    width: 100
+    width: 60
   },
   {
     label: "等级考试名称",
-    prop: "gradeName"
+    prop: "gradeName",
+    minWidth: 120
   },
   {
     label: "准考证号",
@@ -58,7 +59,13 @@ const columns: TableColumnList = [
           <span class="font-medium">等级考试详细信息</span>
         </div>
       </template>
-      <pure-table :data="gradeData" :columns="columns" border stripe />
+      <pure-table
+        :data="gradeData"
+        size="small"
+        :columns="columns"
+        border
+        stripe
+      />
     </el-card>
   </div>
 </template>

@@ -13,7 +13,7 @@ const columns: TableColumnList = [
   {
     label: "选课课号",
     prop: "selNumber",
-    width: 280
+    minWidth: 230
   },
   {
     label: "课程名称",
@@ -23,7 +23,7 @@ const columns: TableColumnList = [
   {
     label: "姓名",
     prop: "name",
-    minWidth: 150
+    minWidth: 100
   },
   {
     label: "考试时间",
@@ -38,7 +38,7 @@ const columns: TableColumnList = [
   {
     label: "考试形式",
     prop: "examType",
-    width: 90
+    width: 80
   },
   {
     label: "座位号",
@@ -77,6 +77,7 @@ const onSearch = () => {
     <pure-table
       :loading="isLoading"
       :data="examData"
+      size="small"
       :columns="columns"
       border
       stripe
