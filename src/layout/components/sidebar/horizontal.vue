@@ -8,6 +8,7 @@ import { useNav } from "@/layout/hooks/useNav";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import LogoutCircleRLine from "@iconify-icons/ri/logout-circle-r-line";
 import Setting from "@iconify-icons/ri/settings-3-line";
+import logo from "@/assets/login/avatar.png";
 
 const menuRef = ref();
 
@@ -37,7 +38,7 @@ nextTick(() => {
     class="horizontal-header"
   >
     <div class="horizontal-header-left" @click="backTopMenu">
-      <img src="/logo.png" alt="logo" />
+      <img :src="logo" alt="logo" />
       <span>{{ title }}</span>
     </div>
     <el-menu

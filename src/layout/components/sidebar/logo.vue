@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getTopMenu } from "@/router/utils";
 import { useNav } from "@/layout/hooks/useNav";
+import logo from "@/assets/login/avatar.png";
 
 const props = defineProps({
   collapse: Boolean
@@ -20,7 +21,7 @@ const { title } = useNav();
         :to="getTopMenu()?.path ?? '/'"
       >
         <!-- 左上角logo -->
-        <img src="/logo.png" alt="logo" />
+        <img :src="logo" alt="logo" />
         <span class="sidebar-title">{{ title }}</span>
       </router-link>
       <router-link
@@ -30,7 +31,7 @@ const { title } = useNav();
         class="sidebar-logo-link"
         :to="getTopMenu()?.path ?? '/'"
       >
-        <img src="/logo.png" alt="logo" />
+        <img :src="logo" alt="logo" />
         <span class="sidebar-title">{{ title }}</span>
       </router-link>
     </transition>
