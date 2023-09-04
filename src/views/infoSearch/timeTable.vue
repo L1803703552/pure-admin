@@ -24,7 +24,7 @@ const columns: TableColumnList = [
   },
   {
     prop: "section",
-    width: 35
+    width: 60
   },
   {
     label: "星期一",
@@ -87,81 +87,99 @@ const columns2: TableColumnList = [
 const columns3: TableColumnList = [
   {
     label: "课程名称",
-    prop: "courseName"
+    prop: "courseName",
+    minWidth: 200
   },
   {
     label: "教师",
-    prop: "teacherName"
+    prop: "teacherName",
+    minWidth: 130
   },
   {
     label: "学分",
-    prop: "credit"
+    prop: "credit",
+    minWidth: 80
   },
   {
     label: "起止周",
-    prop: "startEndWeek"
+    prop: "startEndWeek",
+    minWidth: 100
   },
   {
     label: "上课时间",
-    prop: "classTime"
+    prop: "classTime",
+    minWidth: 200
   },
   {
     label: "上课地点",
-    prop: "classLocation"
+    prop: "classLocation",
+    minWidth: 200
   }
 ];
 // 实习课信息
 const columns4: TableColumnList = [
   {
     label: "学年",
-    prop: "schoolYear"
+    prop: "schoolYear",
+    minWidth: 100
   },
   {
     label: "学期",
-    prop: "term"
+    prop: "term",
+    minWidth: 80
   },
   {
     label: "课程名称",
-    prop: "courseName"
+    prop: "courseName",
+    minWidth: 200
   },
   {
     label: "实习时间",
-    prop: "interTime"
+    prop: "interTime",
+    minWidth: 100
   },
   {
     label: "模块代号",
-    prop: "moduleNumber"
+    prop: "moduleNumber",
+    minWidth: 100
   },
   {
     label: "先修模块",
-    prop: "placeModule"
+    prop: "placeModule",
+    minWidth: 100
   },
   {
     label: "实习编号",
-    prop: "interNumber"
+    prop: "interNumber",
+    minWidth: 100
   }
 ];
 // 未安排上课时间的课程
 const columns5: TableColumnList = [
   {
     label: "学年",
-    prop: "schoolYear"
+    prop: "schoolYear",
+    minWidth: 100
   },
   {
     label: "学期",
-    prop: "term"
+    prop: "term",
+    minWidth: 80
   },
   {
     label: "课程名称",
-    prop: "courseName"
+    prop: "courseName",
+    minWidth: 200
   },
   {
     label: "教师姓名",
-    prop: "teacherName"
+    prop: "teacherName",
+    minWidth: 130
   },
   {
     label: "学分",
-    prop: "credit"
+    prop: "credit",
+    minWidth: 80
   }
 ];
 // 课表查询不存在“全部”选项，由于是从data里面导出的，在实际Ajax请求的时候要去掉
