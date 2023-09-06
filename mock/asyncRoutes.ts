@@ -184,7 +184,7 @@ const gradDesignRoter = {
   path: "/gradDesign",
   meta: {
     title: "毕业设计",
-    icon: "zondicons:education",
+    icon: "material-symbols:school-outline",
     rank: 60
   },
   children: [
@@ -193,6 +193,25 @@ const gradDesignRoter = {
       name: "gradDesign",
       meta: {
         title: "毕业设计"
+      }
+    }
+  ]
+};
+
+// 生活服务
+const lifeServiceRouter = {
+  path: "/lifeService",
+  meta: {
+    title: "生活服务",
+    icon: "ph:lifebuoy",
+    rank: 70
+  },
+  children: [
+    {
+      path: "/lifeService/index",
+      name: "lifeService",
+      meta: {
+        title: "生活服务"
       }
     }
   ]
@@ -212,7 +231,8 @@ export default [
           assessRoter,
           infoManageRouter,
           infoSearchRouter,
-          gradDesignRoter
+          gradDesignRoter,
+          lifeServiceRouter
         ]
       };
     }
